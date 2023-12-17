@@ -14,13 +14,6 @@ const inter = Inter({
   display: 'swap',
 });
 
-const roboto_flex = Roboto_Flex({
-  weight: ["400", "500", "600", "700"],
-  subsets: ['latin'],
-  variable: '--roboto-flex-font',
-  display: 'swap',
-});
-
 
 export const metadata: Metadata = {
   title: 'Next.js 14- TailwindCSS Starter Template',
@@ -47,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${roboto_flex.variable}`}>
+      <body className={`${inter.variable}`}>
         <Navbar/>
         {children}
       </body>
