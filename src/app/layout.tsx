@@ -16,12 +16,12 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: 'Next.js 14- TailwindCSS Starter Template',
-  description: 'Next.js 14- TailwindCSS Starter Template',
+  title: 'Next.js 14- Event App',
+  description: 'Next.js 14- Event App with Clerk authentication and TailwindCSS',
   openGraph: {
-    title: 'Next.js 14- TailwindCSS Starter Template',
+    title: 'Next.js 14- Event App',
     description:
-      'Next.js 14- TailwindCSS Starter Template open graph descriptions for social media',
+      'Next.js 14- Event App with Clerk authentication and TailwindCSS',
     images: [
       {
         url: '/images/og-meta-img.jpg',
@@ -40,8 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable}`}>
-        <Navbar/>
+      <body className={inter.variable}>
         {children}
       </body>
     </html>
