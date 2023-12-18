@@ -16,7 +16,7 @@ export default function NavItems() {
           <li
             key={link.route}
             className={`${
-              isActive && '!text-primary-500'
+              isActive && '!text-primary'
             } text-white hover:text-primary-500 transition-all flex-center p-medium-16 whitespace-nowrap`}
           >
             <Link href={link.route}>{link.label}</Link>

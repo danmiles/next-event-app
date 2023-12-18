@@ -3,10 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import NavItems from './NavItems';
+import NavMobile from './NavMobile';
 
 const Header = () => {
   return (
-    <header className="border-b bg-slate-400">
+    <header className="border-b bg-slate-600">
       <div className="container">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
@@ -26,6 +27,7 @@ const Header = () => {
           <div className="flex items-center gap-2">
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
+              <NavMobile />
             </SignedIn>
             <SignedOut>
               <Button asChild className="rounded-full" size="lg">
