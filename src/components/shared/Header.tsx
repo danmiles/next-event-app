@@ -2,22 +2,28 @@ import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import NavItems from './NavItems';
 
 const Header = () => {
   return (
-    <header className="w-full border-b">
+    <header className="border-b bg-slate-400">
       <div className="container">
         <div className="flex justify-between items-center py-4">
+          {/* Logo */}
           <Link href="/">
             <div className="flex items-center gap-2">
               <Image src="/images/logo.svg" alt="Logo" width={40} height={42} />
-              <span className="text-2xl font-bold">Next Event</span>
+              <span className="lg:text-3xl text-2xl text-white font-bold">Next Event</span>
             </div>
           </Link>
-          <div className="flex items-center space-x-4">
-            <Button asChild className="rounded-full" size="lg">
-              Sign In
-            </Button>
+          {/* Navbar */}
+          <SignedIn>
+          <nav className="md:flex-between hidden w-full max-w-xs">
+            <NavItems />
+          </nav>
+        </SignedIn>
+          {/* Buttons and Navbar mobile */}
+          <div className="flex items-center gap-2">
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
             </SignedIn>
