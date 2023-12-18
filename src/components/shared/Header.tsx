@@ -9,19 +9,22 @@ const Header = () => {
       <div className="container">
         <div className="flex justify-between items-center py-4">
           <Link href="/">
-            <div className="flex gap-2">
-              <Image src="/images/logo.svg" alt="Logo" width={40} height={40} />
+            <div className="flex items-center gap-2">
+              <Image src="/images/logo.svg" alt="Logo" width={40} height={42} />
               <span className="text-xl font-bold">Next Event</span>
             </div>
           </Link>
           <div className="flex items-center space-x-4">
+            <Button asChild className="rounded-full" size="lg">
+              Sign In
+            </Button>
             <SignedIn>
-              <UserButton />
+              <UserButton afterSignOutUrl="/" />
             </SignedIn>
             <SignedOut>
-              <Link href="/sign-in">
-                <Button>Sign In</Button>
-              </Link>
+              <Button asChild className="rounded-full" size="lg">
+                <Link href="/sign-in">Login</Link>
+              </Button>
             </SignedOut>
           </div>
         </div>
