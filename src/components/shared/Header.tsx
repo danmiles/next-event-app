@@ -11,7 +11,7 @@ const Header = () => {
           <Link href="/">
             <div className="flex items-center gap-2">
               <Image src="/images/logo.svg" alt="Logo" width={40} height={42} />
-              <span className="text-xl font-bold">Next Event</span>
+              <span className="text-2xl font-bold">Next Event</span>
             </div>
           </Link>
           <div className="flex items-center space-x-4">
