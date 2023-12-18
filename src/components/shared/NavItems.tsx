@@ -1,7 +1,28 @@
+'use client';
+
+import { headerLinks } from '@/localData/constData'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 export default function NavItems() {
+  const pathname = usePathname();
   return (
-    <div>Navitems</div>
+    <ul className="md:flex-between flex w-full flex-col items-start gap-5 md:flex-row">
+      {headerLinks.map((link) => {
+        const isActive = pathname === link.route;
+        
+        return (
+          <li
+            key={link.route}
+            className={`${
+              isActive && '!text-primary-500'
+            } text-white hover:text-primary-500 transition-all flex-center p-medium-16 whitespace-nowrap`}
+          >
+            <Link href={link.route}>{link.label}</Link>
+          </li>
+        )
+      })}
+    </ul>
   )
 }
