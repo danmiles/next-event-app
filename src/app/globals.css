@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ========== GLOBAL STYLES ========== */
+body {
+  font-family: var(--font-inter);
+  color: #333333;
+}
+
+
 /* ========== Radix-Ui ========== */
 
 @layer base {
@@ -75,10 +82,6 @@
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: var(--font-inter);
-  color: #333333;
-}
 
 .filter-grey {
   filter: brightness(0) saturate(100%) invert(47%) sepia(0%) saturate(217%)
@@ -97,6 +100,10 @@ body {
 
   .flex-between {
     @apply flex justify-between items-center;
+  }
+
+  .section-padding {
+    @apply lg:pt-20 lg:pb-20 md:pt-16 md:pb-16 pt-10 pb-10;
   }
 
   /* TYPOGRAPHY */

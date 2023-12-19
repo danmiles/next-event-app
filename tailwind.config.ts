@@ -12,7 +12,7 @@ module.exports = withUt({
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: '1rem',
       screens: {
         '2xl': '1400px',
       },
@@ -24,6 +24,10 @@ module.exports = withUt({
           50: ' #32FF5F',
           DEFAULT: '#3ECB5C',
           foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: '#92029a',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
         coral: {
           500: '#15BF59',
@@ -41,10 +45,6 @@ module.exports = withUt({
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         foreground: 'hsl(var(--foreground))',
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
