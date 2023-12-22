@@ -1,11 +1,10 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
+import { createUser, deleteUser, updateUser } from '@/lib/actions/user.actions'
 import { clerkClient } from '@clerk/nextjs'
 import { NextResponse } from 'next/server'
-import { createUser, deleteUser, updateUser } from '@/lib/database/actions/actions.user'
-
-// Create new user in MongoDB if we receive a user.created event from Clerk 
+ 
 export async function POST(req: Request) {
  
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -51,7 +50,6 @@ export async function POST(req: Request) {
     })
   }
  
-  // Get the ID and type - you can use this to determine what to do with the event
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
@@ -106,7 +104,4 @@ export async function POST(req: Request) {
  
   return new Response('', { status: 200 })
 }
-
-
-
  
