@@ -66,6 +66,11 @@ export async function POST(req: Request) {
       photo: image_url,
     }
   }
+
+  // const newUser = await createUser(user);
+
+
+  return new Response('', { status: 200 })
 }
 
  
