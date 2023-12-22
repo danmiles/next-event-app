@@ -1,6 +1,8 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
+import { clerkClient } from '@clerk/nextjs'
+import { NextResponse } from 'next/server'
  
 export async function POST(req: Request) {
  
@@ -47,19 +49,23 @@ export async function POST(req: Request) {
     })
   }
  
+  // Get the ID and type - you can use this to determine what to do with the event
   // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
  
-  if (eventType === 'user.created') {
-    // Do something with the user
-    
-    console.log('User created', id)
-  } else if (eventType === 'user.updated') {
-    // Do something with the user
-    console.log('User updated', id)
+  if(eventType === 'user.created') {
+    const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
+
+    const user = {
+      clerkId: id,
+      email: email_addresses[0].email_address,
+      username: username!,
+      firstName: first_name,
+      lastName: last_name,
+      photo: image_url,
+    }
   }
- 
-  return new Response('', { status: 200 })
 }
+
  
