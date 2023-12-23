@@ -20,9 +20,8 @@ module.exports = withUt({
     extend: {
       colors: {
         primary: {
-          500: '#20AC3E',
-          50: ' #32FF5F',
-          DEFAULT: '#3ECB5C',
+          500: '#f7ea00',
+          DEFAULT: '#f6ea0d',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
@@ -70,8 +69,7 @@ module.exports = withUt({
         poppins: ['var(--font-poppins)'],
       },
       backgroundImage: {
-        'dotted-pattern': "url('/assets/images/dotted-pattern.png')",
-        'hero-img': "url('/assets/images/hero.png')",
+        'dotted-pattern': "url('/images/dotted-pattern.png')",
       },
       borderRadius: {
         lg: 'var(--radius)',
