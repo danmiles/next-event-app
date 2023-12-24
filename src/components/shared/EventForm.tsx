@@ -1,7 +1,12 @@
 import React from 'react'
 
-export default function EventForm() {
+type EventFormProps = {
+  userId: string;
+  type: 'Create' | 'Update';
+}
+
+export default function EventForm({userId, type} : EventFormProps) {
   return (
-    <div>EventForm</div>
+    <div>EventForm {type}</div>
   )
 }
