@@ -17,6 +17,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { eventDefaultValues } from '@/localData/constData';
 import Dropdown from './Dropdown';
+import { Textarea } from '../ui/textarea';
 
 type EventFormProps = {
   userId: string;
@@ -43,6 +44,7 @@ export default function EventForm({ userId, type }: EventFormProps) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-5"
       >
+        {/* Form Title start */}
         <div className="flex flex-col items-center gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -77,6 +79,27 @@ export default function EventForm({ userId, type }: EventFormProps) {
             )}
           />
         </div>
+        {/* Form Title end */}
+        {/* Form Description start */}
+        <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormControl className="h-72">
+                  <Textarea
+                    placeholder="Description"
+                    {...field}
+                    className="textarea rounded-2xl"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        {/* Form Description end */}
         <div className="flex justify-center">
           <Button size="lg" type="submit">
             Submit
