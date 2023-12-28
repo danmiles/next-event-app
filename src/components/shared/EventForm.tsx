@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { eventFormSchema } from '@/lib/validator';
@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { eventDefaultValues } from '@/localData/constData';
 import Dropdown from './Dropdown';
 import { Textarea } from '../ui/textarea';
+import {FileUploader} from './FileUploader';
 
 type EventFormProps = {
   userId: string;
@@ -25,6 +26,7 @@ type EventFormProps = {
 };
 
 export default function EventForm({ userId, type }: EventFormProps) {
+  const [files, setFiles] = useState<File[]>([])
   const initialValues = eventDefaultValues;
   // 1. Define your form.
   const form = useForm<z.infer<typeof eventFormSchema>>({
@@ -98,6 +100,22 @@ export default function EventForm({ userId, type }: EventFormProps) {
               </FormItem>
             )}
           />
+          <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl className="h-72">
+                    <FileUploader 
+                      onFieldChange={field.onChange}
+                      imageUrl={field.value}
+                      setFiles={setFiles}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
         </div>
         {/* Form Description end */}
         <div className="flex justify-center">
