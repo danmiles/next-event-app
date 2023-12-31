@@ -1,5 +1,3 @@
-'use client';
-import { startTransition, useEffect, useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -8,6 +6,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ICategory } from '@/lib/database/models/category.model';
+import { startTransition, useEffect, useState } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,18 +18,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { Input } from '../ui/input';
 import {
   createCategory,
   getAllCategories,
 } from '@/lib/actions/category.actions';
-import { Input } from '../ui/input';
 
 type DropdownProps = {
-  value: string;
-  onChangeHandler: (value: string) => void;
+  value?: string;
+  onChangeHandler?: () => void;
 };
 
-export default function Dropdown({ value, onChangeHandler }: DropdownProps) {
+const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [newCategory, setNewCategory] = useState('');
 
@@ -53,7 +52,7 @@ export default function Dropdown({ value, onChangeHandler }: DropdownProps) {
   }, []);
 
   return (
-    <Select>
+    <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className="select-field">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
@@ -98,4 +97,6 @@ export default function Dropdown({ value, onChangeHandler }: DropdownProps) {
       </SelectContent>
     </Select>
   );
-}
+};
+
+export default Dropdown;
