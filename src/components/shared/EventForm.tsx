@@ -1,10 +1,7 @@
 'use client';
-import { useState } from 'react';
-import Image from 'next/image';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { eventFormSchema } from '@/lib/validator';
-import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -16,43 +13,111 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { eventFormSchema } from '@/lib/validator';
+import * as z from 'zod';
 import { eventDefaultValues } from '@/localData/constData';
 import Dropdown from './Dropdown';
-import { Textarea } from '../ui/textarea';
+import { Textarea } from '@/components/ui/textarea';
 import { FileUploader } from './FileUploader';
-// Datepicker
+import { useState } from 'react';
+import Image from 'next/image';
 import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-// Checkbox
-import { Checkbox } from '@radix-ui/react-checkbox';
+import { useUploadThing } from '@/lib/uploadthing';
 
+import 'react-datepicker/dist/react-datepicker.css';
+import { Checkbox } from '../ui/checkbox';
+import { useRouter } from 'next/navigation';
+import { createEvent, updateEvent } from '@/lib/actions/event.actions';
+import { IEvent } from '@/lib/database/models/event.model';
+
+// Defining the type for the EventFormProps
 type EventFormProps = {
   userId: string;
   type: 'Create' | 'Update';
+  event?: IEvent;
+  eventId?: string;
 };
-
-export default function EventForm({ userId, type }: EventFormProps) {
+// EventForm component
+const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const initialValues = eventDefaultValues;
-  // 1. Define your form.
+  // Setting initial values based on the type of operation (Create or Update)
+  const initialValues =
+    event && type === 'Update'
+      ? {
+          ...event,
+          startDateTime: new Date(event.startDateTime),
+          endDateTime: new Date(event.endDateTime),
+        }
+      : eventDefaultValues;
+  // Using the useRouter hook from Next.js
+  const router = useRouter();
+  // Using the custom hook useUploadThing
+  const { startUpload } = useUploadThing('imageUploader');
+  // Using the useForm hook from react-hook-form
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: initialValues,
   });
+  // Function to handle form submission
+  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
+    let uploadedImageUrl = values.imageUrl;
+    // If files are present, start the upload
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files);
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof eventFormSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+      if (!uploadedImages) {
+        return;
+      }
+
+      uploadedImageUrl = uploadedImages[0].url;
+    }
+    // If type is 'Create', create a new event
+    if (type === 'Create') {
+      try {
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: uploadedImageUrl },
+          userId,
+          path: '/profile',
+        });
+
+        if (newEvent) {
+          form.reset();
+          router.push(`/events/${newEvent._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    // If type is 'Update', update the existing event
+    if (type === 'Update') {
+      if (!eventId) {
+        router.back();
+        return;
+      }
+
+      try {
+        const updatedEvent = await updateEvent({
+          userId,
+          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
+          path: `/events/${eventId}`,
+        });
+
+        if (updatedEvent) {
+          form.reset();
+          router.push(`/events/${updatedEvent._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-5"
       >
-        {/* Form Title start */}
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -70,7 +135,6 @@ export default function EventForm({ userId, type }: EventFormProps) {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="categoryId"
@@ -87,8 +151,7 @@ export default function EventForm({ userId, type }: EventFormProps) {
             )}
           />
         </div>
-        {/* Form Title end */}
-        {/* Form Description and upload files start */}
+
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -123,8 +186,7 @@ export default function EventForm({ userId, type }: EventFormProps) {
             )}
           />
         </div>
-        {/* Form Description upload files  end */}
-        {/* Form location start */}
+
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -136,8 +198,8 @@ export default function EventForm({ userId, type }: EventFormProps) {
                     <Image
                       src="/images/icons/location.svg"
                       alt="calendar"
-                      width={30}
-                      height={30}
+                      width={24}
+                      height={24}
                     />
 
                     <Input
@@ -152,8 +214,7 @@ export default function EventForm({ userId, type }: EventFormProps) {
             )}
           />
         </div>
-        {/* Form location end */}
-        {/* Form date start */}
+
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -165,8 +226,8 @@ export default function EventForm({ userId, type }: EventFormProps) {
                     <Image
                       src="/images/icons/calendar-start.svg"
                       alt="calendar"
-                      width={30}
-                      height={30}
+                      width={24}
+                      height={24}
                     />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       Start Date:
@@ -176,7 +237,7 @@ export default function EventForm({ userId, type }: EventFormProps) {
                       onChange={(date: Date) => field.onChange(date)}
                       showTimeSelect
                       timeInputLabel="Time:"
-                      dateFormat="dd/MM/yyyy h:mm aa"
+                      dateFormat="MM/dd/yyyy h:mm aa"
                       wrapperClassName="datePicker"
                     />
                   </div>
@@ -196,8 +257,8 @@ export default function EventForm({ userId, type }: EventFormProps) {
                     <Image
                       src="/images/icons/calendar-end.svg"
                       alt="calendar"
-                      width={30}
-                      height={30}
+                      width={24}
+                      height={24}
                     />
                     <p className="ml-3 whitespace-nowrap text-grey-600">
                       End Date:
@@ -207,7 +268,7 @@ export default function EventForm({ userId, type }: EventFormProps) {
                       onChange={(date: Date) => field.onChange(date)}
                       showTimeSelect
                       timeInputLabel="Time:"
-                      dateFormat="dd/MM/yyyy h:mm aa"
+                      dateFormat="MM/dd/yyyy h:mm aa"
                       wrapperClassName="datePicker"
                     />
                   </div>
@@ -217,8 +278,7 @@ export default function EventForm({ userId, type }: EventFormProps) {
             )}
           />
         </div>
-        {/* Form date end */}
-        {/* Price and Url start */}
+
         <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
@@ -228,10 +288,10 @@ export default function EventForm({ userId, type }: EventFormProps) {
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
                     <Image
-                      src="/images/icons/dollar-icon.svg"
+                      src="/images/icons/dollar.svg"
                       alt="dollar"
-                      width={30}
-                      height={30}
+                      width={24}
+                      height={24}
                     />
                     <Input
                       type="number"
@@ -280,8 +340,8 @@ export default function EventForm({ userId, type }: EventFormProps) {
                     <Image
                       src="/images/icons/link.svg"
                       alt="link"
-                      width={30}
-                      height={30}
+                      width={24}
+                      height={24}
                     />
 
                     <Input
@@ -296,9 +356,6 @@ export default function EventForm({ userId, type }: EventFormProps) {
             )}
           />
         </div>
-        {/* Price and Url end */}
-        {/* Form submit button start */}
-        {/* Form submit button start */}
         <div className="flex justify-center">
           <Button
             type="submit"
@@ -309,8 +366,9 @@ export default function EventForm({ userId, type }: EventFormProps) {
             {form.formState.isSubmitting ? 'Submitting...' : `${type} Event `}
           </Button>
         </div>
-        {/* Form submit button end */}
       </form>
     </Form>
   );
-}
+};
+
+export default EventForm;
