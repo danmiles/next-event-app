@@ -17,8 +17,13 @@ export default function Home() {
                 the required event.
               </h1>
               <p className="p-regular-20 md:p-regular-24">
-                Book and learn helpful tips from 3,168+ mentors in world-class
-                companies with our global community.
+                Clerk is a developer-first authentication API that handles all,
+                or part, of your app's login flow. It's easy to integrate, fully
+                customizable, and secure by default.
+              </p>
+              <p className="p-regular-20 md:p-regular-24">
+                Once authenticated, this will allow you to create a new Event as
+                well as modify it.
               </p>
               <Button size="lg" asChild className="button w-fit ">
                 <Link href="#events">Explore Now</Link>
@@ -38,7 +43,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section >
+      </section>
       <section className="section-padding" id="events">
         <div className="container">
           <h2 className="h2-bold">
