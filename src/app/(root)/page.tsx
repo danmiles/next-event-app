@@ -18,7 +18,7 @@ export default function Home() {
               </h1>
               <p className="p-regular-20 md:p-regular-24">
                 Clerk is a developer-first authentication API that handles all,
-                or part, of your app's login flow. It's easy to integrate, fully
+                or part, of your app`s login flow. It`s easy to integrate, fully
                 customizable, and secure by default.
               </p>
               <p className="p-regular-20 md:p-regular-24">
