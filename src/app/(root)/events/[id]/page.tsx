@@ -5,6 +5,7 @@ import {
 import { formatDateTime } from '@/lib/utils';
 import { SearchParamProps } from '@/types';
 import Image from 'next/image';
+import Collection from '@/components/shared/Collection';
 
 export default async function EventDetails({
   params: { id },
@@ -12,9 +13,15 @@ export default async function EventDetails({
 }: SearchParamProps) {
   const event = await getEventById(id);
 
+  const relatedEvents = await getRelatedEventsByCategory({
+    categoryId: event.category._id,
+    eventId: event._id,
+    page: searchParams.page as string,
+  });
+
   return (
-    <section className='md:pt-10 pt-7'>
-      <div className="container">
+    <div className="container">
+      <section className="md:pt-10 pt-7">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           <Image
             src={event.imageUrl}
@@ -76,20 +83,40 @@ export default async function EventDetails({
                   width={32}
                   height={32}
                 />
-                <p className="p-medium-16 lg:p-regular-20">{event.location}</p>
+                <p className="p-medium-16 lg:p-regular-20">
+                  {event.location}
+                </p>
               </div>
             </div>
 
             <div className="flex flex-col gap-2">
               <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
-              <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
+              <p className="p-medium-16 lg:p-regular-18">
+                {event.description}
+              </p>
               <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">
                 {event.url}
               </p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+        
+      </section>
+      {/* Releated Events */}
+      <section className="my-8 flex flex-col gap-8 md:gap-12">
+        <h2 className="h2-bold">Related Events</h2>
+
+        <Collection
+          data={relatedEvents?.data}
+          emptyTitle="No Events Found"
+          emptyStateSubtext="Come back later"
+          collectionType="All_Events"
+          limit={3}
+          page={searchParams.page as string}
+          totalPages={relatedEvents?.totalPages}
+        />
+      </section>
+    </div>    
+    // Container end 
   );
 }
