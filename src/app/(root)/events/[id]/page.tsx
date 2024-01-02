@@ -21,7 +21,7 @@ export default async function EventDetails({
 
   return (
     <div className="container">
-      <section className="md:pt-10 pt-7">
+      <section className="section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           <Image
             src={event.imageUrl}
@@ -103,7 +103,7 @@ export default async function EventDetails({
         
       </section>
       {/* Releated Events */}
-      <section className="my-8 flex flex-col gap-8 md:gap-12">
+      <section className="section-padding flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Related Events</h2>
 
         <Collection

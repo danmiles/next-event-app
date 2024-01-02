@@ -103,7 +103,7 @@ body {
   }
 
   .section-padding {
-    @apply lg:pt-20 lg:pb-20 md:pt-16 md:pb-16 pt-10 pb-10;
+    @apply lg:pt-20 lg:pb-20 md:pt-16 md:pb-16 pt-8 pb-8;
   }
 
   /* TYPOGRAPHY */
