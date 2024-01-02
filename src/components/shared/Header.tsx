@@ -7,7 +7,7 @@ import NavMobile from './NavMobile';
 
 const Header = () => {
   return (
-    <header className="border-b bg-purple-700">
+    <header className="border-b bg-blue-800">
       <div className="container">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
