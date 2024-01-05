@@ -9,6 +9,12 @@ import Link from 'next/link';
 import React from 'react';
 
 export default async function Profile({ searchParams }: SearchParamProps) {
+  // Get specific id from Clerk session
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
+  const ordersPage = Number(searchParams?.ordersPage) || 1;
+  const eventsPage = Number(searchParams?.eventsPage) || 1;
+  const organizedEvents = await getEventsByUser({ userId, page: eventsPage })
   return (
     <>
       {/* My Tickets */}
@@ -46,7 +52,7 @@ export default async function Profile({ searchParams }: SearchParamProps) {
 
       <section className="wrapper my-8">
         <Collection
-          data={[]}
+          data={organizedEvents?.data}
           emptyTitle="No events have been created yet"
           emptyStateSubtext="Go create some now"
           collectionType="Events_Organized"
