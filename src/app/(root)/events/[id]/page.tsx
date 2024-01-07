@@ -23,13 +23,13 @@ export default async function EventDetails({
   return (
     <div className="container">
       <section className="section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
+        <div className="grid grid-cols-1 md:grid-cols-2">
           <Image
             src={event.imageUrl}
             alt="hero image"
             width={1000}
             height={800}
-            className="h-full min-h-[400px] object-contain"
+            className="h-full min-h-[300px] object-cover object-center"
           />
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">
