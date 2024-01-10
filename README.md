@@ -2,7 +2,7 @@
 
 [![Next 14 Event App](https://res.cloudinary.com/dlgtw34xy/image/upload/v1704879315/Next.js%2014%20Event%20App/og-meta-img_ryactz.jpg)](https://next-event-app-seven.vercel.app/)
 
-<p>Next.js 14 Event App (MERN) + Tailwind + Shadcn/UI, allows you to authenticate and then create the required event.</p>
+<p>Next.js 14 Event App (MERN) - Clerk auth, Tailwind , Shadcn/UI, allows you to authenticate and then create the required event.</p>
 
 <h4> <a href=https://next-event-app-seven.vercel.app/>View Demo</a> <span> · </span> <a href="https://web-navigator.dev/contact"> Report Bug </a> <span> · </span></h4>
 
