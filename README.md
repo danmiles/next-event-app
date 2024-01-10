@@ -1,6 +1,6 @@
 <div align='center'>
 
-[![Next 14 Event App](https://assets.digitalocean.com/articles/alligator/boo.svg)](https://digitalocean.com)
+[![Next 14 Event App](https://res.cloudinary.com/dlgtw34xy/image/upload/v1704879315/Next.js%2014%20Event%20App/og-meta-img_ryactz.jpg)](https://next-event-app-seven.vercel.app/)
 
 <p>Next.js 14 Event App (MERN) + Tailwind + Shadcn/UI, allows you to authenticate and then create the required event.</p>
 
