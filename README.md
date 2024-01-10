@@ -26,9 +26,7 @@
 | Color           | Hex                                                              |
 | --------------- | ---------------------------------------------------------------- |
 | Primary Color   | ![F66F0D](https://via.placeholder.com/10/F66F0D?text=+) F66F0D   |
-| Secondary Color | ![#92029a](https://via.placeholder.com/10/92029a?text=+) #92029a |
-| Accent Color    | ![#00ADB5](https://via.placeholder.com/10/00ADB5?text=+) #00ADB5 |
-| Text Color      | ![#EEEEEE](https://via.placeholder.com/10/EEEEEE?text=+) #EEEEEE |
+ |
 
 ### :key: Environment Variables
 
