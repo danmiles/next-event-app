@@ -22,7 +22,7 @@ module.exports = withUt({
         primary: {
           50: '#FCCB93',
           500: '#FF8903',
-          600: '#F66F0D',          
+          600: '#FF5C00',          
           DEFAULT: '#F66F0D',
           foreground: 'hsl(var(--primary-foreground))',
         },
